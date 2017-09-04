@@ -6,8 +6,8 @@
           Create a channle
         </div>
         <div class="discrption">
-          Channles are where your tem communicates.</br>
-          They're best when organized around a topic - #leads, for example
+          Channles are where your tem communicates.
+          They're best when organized around a topic - #leads,</br> for example
         </div>
         <div class="channelType">
           <el-tooltip :content="'Switch value: ' + value3" placement="top">
@@ -20,10 +20,20 @@
               off-value="0">
             </el-switch>
           </el-tooltip>
+          Anyone on your team can view and join this channel.
         </div>
-        <input type="text" placeholder="new channel name" v-model="channelName">
-        <!-- 「$emit」は、現在のインスタンス上でイベントを発行します。 -->
-        <button @click="channelAdd">OK</button>
+        <div class="channel-inputBox">
+          <p>Name</p>
+          <input type="text" placeholder="new channel name" v-model="channelName"></br>
+          <p>Purpose(optional)</p>
+          <input type="text" placeholder="new channel name" v-model="channelName"></br>
+          <p>Send invites to:(optional)</p>
+          <input type="text" placeholder="new channel name" v-model="channelName"></br>
+          <div class="channel-btnBox">
+            <button @click="channelAdd">Cancel</button>
+            <button @click="channelAdd">Create Channel</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -79,16 +89,17 @@ export default {
 }
 
 .modal-wrapper {
-  border: 1px solid black;
   display: table-cell;
   vertical-align: middle;
+  position: relative;
 }
 
 .modal-container {
-  border: 1px solid black;
   background: #fff;
-  width: 50%;
-  height: 70%;
+  width: 60%;
+  height: 80%;
+  margin: 0 auto;
+  padding: 5% 0;
 }
 
 .header {
@@ -104,4 +115,11 @@ export default {
   border: 1px solid black;
   padding: 10%;
 }
+
+.channel-btnBox {
+  text-align: right;
+}
+
+
+
 </style>

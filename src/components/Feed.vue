@@ -28,8 +28,8 @@ export default {
 <style scoped>
 
 .feed {
-    width:80%;
-    float:left
+  width:80%;
+  float:left;
 }
 
 h1, h2 {

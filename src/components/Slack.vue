@@ -1,8 +1,7 @@
 <template>
   <div class="slack">
-    <!-- <h1>{{ msg }}</h1> -->
-  <sidebar class="sidebar"></sidebar>
-  <feed class="feed"></feed>
+    <sidebar class="sidebar"></sidebar>
+    <feed class="feed"></feed>
   </div>
 </template>
 
@@ -26,35 +25,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-* {
-  box-sizing: border-box;
-} 
-
-html,
-body {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  font-size: 17px;
-  font-family: "Lato", Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  color: #555459;
-  overflow: hidden;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  color: #2C2D30;
-}
-
-strong {
-  font-weight: 700;
-}
-
 .slack {
-  /*border: 2px solid #000;*/
   width:100%;
   height:100%;
 }
@@ -64,7 +35,7 @@ strong {
 }
 
 .sidebar {
-  width:20%;
+  width:200%;
   float: left;
   height:100%;
 }
@@ -86,6 +57,5 @@ li {
 a {
   color: #42b983;
 }
-
 
 </style>

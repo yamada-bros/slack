@@ -130,16 +130,5 @@ a {
     box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75);
   }
 }
-/**
- * Attempt to center the whole thing!
- */
-html,
-body {
-  height: 100%;
-}
 
-/* .loader {
-   position: absolute;
-  left: calc(11% - 1.25em); 
-} */
 </style>
