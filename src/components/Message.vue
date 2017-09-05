@@ -62,7 +62,7 @@ export default {
 <style scoped>
 
 .message {
-  height: 84%;
+  height: 83%;
   overflow: scroll;
 }
 

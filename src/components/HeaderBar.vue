@@ -1,13 +1,23 @@
 <template>
   <header class="main__header">
-     <div class="loader"></div>
-    <h1 class="main__h1">{{ titleName }}</h1>
+    <div class="main__name">
+      <p>#{{ titleName }}</p></br>
+      <el-tooltip content="Star this channel" placement="top">
+        <el-button><i class="el-icon-star-off">|</i></el-button>
+      </el-tooltip>
+      <el-tooltip content="View member list" placement="top">
+        <el-button><i class="el-icon-share"> 6 |</i></el-button>
+      </el-tooltip>
+      <el-tooltip content="View pinned items" placement="top">
+        <el-button><i class="el-icon-d-arrow-left"> 0 |</i></el-button>
+      </el-tooltip>
+      <el-button icon="edit" size="mini">Add a topic</el-button>
+    </div>
     <searchbox></searchbox>
-    </header>
+  </header>
 </template>
 
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-
+<script src="//unpkg.com/element-ui@1.4.3/lib/index.js"></script>
 <script>
 import store from '../store'
 import searchbox from '@/components/SearchBox'
@@ -47,15 +57,29 @@ export default {
   justify-content: space-between;
 }
 
-.headerBar {
-  position: relative;
-  height:6%;
-  border-bottom: 1px solid #c0c0c0;
+.main__name {
+  padding-left: 15px;
+  line-height: .5em;
+}
+.main__name p {
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
-h1, h2 {
-  font-weight: normal;
-  margin:0;
+ .main__name button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+} 
+
+.headerBar {
+  position: relative;
+  height:5%;
+  padding: 1% 0;
+  border-bottom: 1px solid #c0c0c0;
 }
 
 ul {

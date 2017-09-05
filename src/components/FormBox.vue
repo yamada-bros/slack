@@ -1,53 +1,49 @@
 <template>
   <div class="formbox">
     <div class="formbox-modal">
-
- <div id="modal-snippet">
-    <div id="open01">
-    <a href="#" class="close_overlay">×</a>
-    <div class="modal_window">
-      <h2>New...-----------------------------------------</h2>
-      <a href="#open-snippet">
-        <p><i class="el-icon-star-on"></i> code or text snippet</p>
-      </a>
-      <p><i class="el-icon-document"></i> post</p>
-      <h2>Add a file from...---------------------------</h2>
-      <p><i class="el-icon-upload"></i> Your computer</p>
-    </div><!--/.modal_window-->
-    </div><!--/#open01-->
-  </div><!--/#modal-->
-
-
-
+      <div id="modal-snippet">
+        <div id="open01">
+          <a href="#" class="close_overlay">×</a>
+          <div class="modal_window">
+            <h2>New...-----------------------------------------</h2>
+            <a href="#open-snippet">
+              <p><i class="el-icon-star-on"></i> code or text snippet</p>
+            </a>
+            <p><i class="el-icon-document"></i> post</p>
+            <h2>Add a file from...---------------------------</h2>
+            <p><i class="el-icon-upload"></i> Your computer</p>
+          </div><!--/.modal_window-->
+        </div><!--/#open01-->
+      </div><!--/#modal-->
 
       <div id="modal">
-      <div id="open01">
-      <a href="#" class="close_overlay">×</a>
-      <div class="modal_window">
-        <h2>New...-----------------------------------------</h2>
-        <a href="#open01">
-          <p><i class="el-icon-star-on"></i> code or text snippet</p>
-        </a>
-        <p><i class="el-icon-document"></i> post</p>
-        <h2>Add a file from...---------------------------</h2>
-        <p><i class="el-icon-upload"></i> Your computer</p>
-      </div><!--/.modal_window-->
-      </div><!--/#open01-->
+        <div id="open01">
+          <a href="#" class="close_overlay">×</a>
+          <div class="modal_window">
+            <h2>New...-----------------------------------------</h2>
+            <a href="#open01">
+              <p><i class="el-icon-star-on"></i> code or text snippet</p>
+            </a>
+            <p><i class="el-icon-document"></i> post</p>
+            <h2>Add a file from...---------------------------</h2>
+            <p><i class="el-icon-upload"></i> Your computer</p>
+          </div><!--/.modal_window-->
+        </div><!--/#open01-->
       </div><!--/#modal-->
     </div>
-      <a href="#open01">
-        <button class="form-button"><i class="el-icon-plus"></i></button>
-      </a>
-      <textarea 
-        v-model="msg"
-        id="share-colors" 
-        name="share_colors" 
-        @keyup.enter="push" 
-        class="main__share-input" />
-        <button class="face-icon"><i class="el-icon-more"></i></button>
-        
-    </div>
-  </template>
+    <a href="#open01">
+      <button class="form-button"><i class="el-icon-plus"></i></button>
+    </a>
+    <textarea 
+      placeholder="#channlename"
+      v-model="msg"
+      id="share-colors" 
+      name="share_colors" 
+      @keyup.enter="push" 
+      class="main__share-input" />
+    <button class="face-icon"><i class="el-icon-more"></i></button>
+  </div>
+</template>
 <script>
 import store from '../store'
 export default {
@@ -88,6 +84,11 @@ export default {
         }
       }
       return chars.join('')
+    }
+  },
+  computed: {
+    titleName () {
+      return store.getters.channelSwitch
     }
   },
   created () {
@@ -143,7 +144,7 @@ a {
 
 .main__share-input {
   display: block;
-   width: 100%; 
+  width: 100%; 
   font-size: 1vw;
   height: 36px;
   line-height: 40px; 

@@ -1,22 +1,43 @@
 <template>
   <div class="header-el">
+    <el-tooltip content="Start a mail" placement="top">
+      <el-button>
         <i class="el-icon-message"></i>
+      </el-button>
+    </el-tooltip>
+    <el-tooltip content="Show Channle Details" placement="top">
+      <el-button>
         <i class="el-icon-information"></i>
+      </el-button>
+    </el-tooltip>
+    <el-tooltip content="Channel Settings" placement="top">
+      <el-button>
         <i class="el-icon-setting"></i>
-        <i class="el-icon-search"></i>
-      <div class="searchBox">
-        <i class="el-icon-search"></i>
-        <input 
-          id="share-colors" 
-          name="share_colors"  
-          class="main__share-input"
-          placeholder="Search" />
-      </div>
-        @
+      </el-button>
+    </el-tooltip>
+
+    <div class="searchBox">
+      <el-input
+        placeholder="Search"
+        icon="search"
+        v-model="input2"
+        :on-icon-click="handleIconClick">
+      </el-input>
+    </div>
+
+    <el-tooltip content="Show Starred Items" placement="top">
+      <el-button>
         <i class="el-icon-star-off"></i>
+      </el-button>
+    </el-tooltip>
+
+    <el-tooltip content="More Items" placement="top">
+      <el-button>
         <i class="el-icon-more"></i>
+      </el-button>
+    </el-tooltip>
   </div>
-   
+  
 </template>
 
 <script>
@@ -25,7 +46,13 @@ export default {
   name: 'searchbox',
   data () {
     return {
-      msg: ''
+      msg: '',
+      input2: ''
+    }
+  },
+  methods: {
+    handleIconClick (ev) {
+      console.log(ev)
     }
   }
 }
@@ -38,15 +65,26 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width:30%;
+  width:40%;
+  padding: 0 20px 0 0;
+}
+
+.header-el i {
+  padding: 0 10px;
+}
+
+.header-el button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
 }
 
 .searchBox {
-  border: 1px solid #000;
-  border-radius: .25rem;
-  height: 30px;
-  display: flex; 
-  padding:1%;
+  width:50%;
+  padding: 0 10px;
 }
 
 .search-button {

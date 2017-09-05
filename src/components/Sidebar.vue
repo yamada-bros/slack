@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar">
+    <modal v-if="showModal" @close="showModal = false"></modal>
     <button class="team-menu">
       <div class="team-menu__info">
         <h1 class="team-menu__name">CAMOBILE,LTD.</h1>
@@ -17,11 +18,15 @@
       <h2 class="channels__heading">
         <span>Channels <span class="channels__number">(16)</span>
         </span>
-        <button 
+
+      <el-tooltip content="Create new channel" placement="top">
+        <el-button>
+          <button 
           @click="showModal = true"
           class="ion-ios-plus-outline channels__add"
           ></button>
-          <modal v-if="showModal"></modal>
+        </el-button>
+      </el-tooltip>
       </h2>
       <ul class="channels__list">
         <li 
@@ -264,7 +269,7 @@ export default {
 .dm__button:before {
   content: "\f401";
   margin-right: 3px;
-  font-family: "Ionicons";
+   font-family: "Ionicons"; 
   font-size: 0.6rem;
 }
 .dm__button--online:before {
@@ -290,15 +295,13 @@ button {
   padding: 0;
   margin: 0;
   font-size: inherit;
-  font-family: inherit;
+    font-family: inherit;  
   text-align: left;
   cursor: pointer;
 }
 button:focus, button:hover, button:active {
   outline: none;
 } 
-
-
 
 
 </style>

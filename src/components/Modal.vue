@@ -1,7 +1,11 @@
 <template>
-  <div class='modal-mask'>
-    <div class='modal-wrapper'>
+ <div class='modal-mask' @close="showModal = false"> 
+    <div class='modal-wrapper' @close="showModal = false">
       <div class='modal-container'>
+        <div class="esc-button" @click="$emit('close')">
+          <i class="el-icon-close"></i></br>
+          esc
+        </div>
         <div class="header">
           Create a channle
         </div>
@@ -10,33 +14,37 @@
           They're best when organized around a topic - #leads,</br> for example
         </div>
         <div class="channelType">
-          <el-tooltip :content="'Switch value: ' + value3" placement="top">
-            <el-switch
-              class="el-switch"
-              v-model="value3"
-              on-color="#13ce66"
-              off-color="#ff4949"
-              on-value="100"
-              off-value="0">
-            </el-switch>
-          </el-tooltip>
+          <el-switch
+            class="el-switch"
+            v-model="value1"
+            on-text="Public"
+            off-text="Private"
+            on-color="#13ce66"
+            off-color="#ff4949">
+          </el-switch>
           Anyone on your team can view and join this channel.
         </div>
         <div class="channel-inputBox">
-          <p>Name</p>
-          <input type="text" placeholder="new channel name" v-model="channelName"></br>
+          <p>Name<span> Don't forget to name your channel</span></p>
+          <el-input placeholder="# e.g.leads" v-model="channelName"></el-input>
+          <p>Names must be lowercase, without spaces or periods,and shorter than 22 characters.</p>
           <p>Purpose(optional)</p>
-          <input type="text" placeholder="new channel name" v-model="channelName"></br>
+          <el-input></el-input></br>
+          <p>What's this channel about?</p>
           <p>Send invites to:(optional)</p>
-          <input type="text" placeholder="new channel name" v-model="channelName"></br>
+          <el-input placeholder="Search by name"></el-input></br>
           <div class="channel-btnBox">
-            <button @click="channelAdd">Cancel</button>
-            <button @click="channelAdd">Create Channel</button>
+            <el-button @click="$emit('close')">Cancel</el-button>
+            <el-button @click="channelAdd" type="primary">Create Channel</el-button>
           </div>
         </div>
       </div>
-    </div>
+    </div>  
+    <div>
   </div>
+</div>
+
+
 </template>
 
 <script>
@@ -46,7 +54,9 @@ export default {
   data () {
     return {
       channelName: '',
-      value3: '100'
+      value1: true,
+      value2: true,
+      dialogTableVisible: true
     }
   },
   methods: {
@@ -78,7 +88,6 @@ export default {
 <style scoped>
 
 .modal-mask {
-  background: red;
   color: black;
   display: table;
   position: fixed;
@@ -86,20 +95,43 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  transition: .5s;
 }
 
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
   position: relative;
+  background: #fff;
 }
 
 .modal-container {
-  background: #fff;
-  width: 60%;
-  height: 80%;
-  margin: 0 auto;
-  padding: 5% 0;
+  width: 50%;
+   height: 50%; 
+   margin:0 auto; 
+}
+
+.esc-button {
+  font-size: inherit;
+  float: right;
+  border-radius: 50%;
+  text-align: center; 
+  width:60px;
+  height: 60px;
+}
+
+.esc-button p {
+  padding: 0;
+  margin: 0;
+}
+
+.esc-button:hover {
+  background-color: #eeeeee;
+
+}
+
+.el-icon-close {
+  padding: 0;  
 }
 
 .header {
@@ -111,15 +143,13 @@ export default {
 
 }
 
-.el-switch{
-  border: 1px solid black;
-  padding: 10%;
+.channel-inputBox span {
+  color: #BE0002;
+  font-family: fantasy;
 }
 
 .channel-btnBox {
   text-align: right;
 }
-
-
 
 </style>
