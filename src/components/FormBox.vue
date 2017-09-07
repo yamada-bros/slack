@@ -39,7 +39,7 @@
       v-model="msg"
       id="share-colors" 
       name="share_colors" 
-      @keyup.enter="push" 
+      @keyup.enter="push(),goBottom()" 
       class="main__share-input" />
     <button class="face-icon"><i class="el-icon-more"></i></button>
   </div>
@@ -56,7 +56,7 @@ export default {
   methods: {
     push () {
       var d = new Date()
-      var time = d.toLocaleTimeString()
+      var time = d.getHours() + ':' + d.getMinutes()
       var message = this.msg
       var timeMessage = {
         time: time,
@@ -66,10 +66,6 @@ export default {
       }
       store.dispatch('push', timeMessage)
       this.msg = ''
-    },
-    goBottom () {
-      var scrollheight = document.getElementById('scroller').scrollHeight
-      document.getElementById('scroller').scrollTop = scrollheight
     },
     generateUuid () {
       let chars = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.split('')
@@ -86,12 +82,14 @@ export default {
       return chars.join('')
     }
   },
+  updated: function goBottom () {
+    var scrollheight = document.getElementById('scroller').scrollHeight
+    document.getElementById('scroller').scrollTop = scrollheight
+  },
   computed: {
     titleName () {
       return store.getters.channelSwitch
     }
-  },
-  created () {
   }
 }
 </script>

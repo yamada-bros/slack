@@ -1,16 +1,16 @@
 <template>
   <div class="header-el">
-    <el-tooltip content="Start a mail" placement="top">
+    <el-tooltip content="Start a mail" open-delay="200" placement="top">
       <el-button>
         <i class="el-icon-message"></i>
       </el-button>
     </el-tooltip>
-    <el-tooltip content="Show Channle Details" placement="top">
+    <el-tooltip content="Show Channle Details" open-delay="200" placement="top">
       <el-button>
         <i class="el-icon-information"></i>
       </el-button>
     </el-tooltip>
-    <el-tooltip content="Channel Settings" placement="top">
+    <el-tooltip content="Channel Settings" open-delay="200" placement="top">
       <el-button>
         <i class="el-icon-setting"></i>
       </el-button>
@@ -25,13 +25,13 @@
       </el-input>
     </div>
 
-    <el-tooltip content="Show Starred Items" placement="top">
+    <el-tooltip content="Show Starred Items" open-delay="200" placement="top">
       <el-button>
         <i class="el-icon-star-off"></i>
       </el-button>
     </el-tooltip>
 
-    <el-tooltip content="More Items" placement="top">
+    <el-tooltip content="More Items" open-delay="200" placement="top">
       <el-button>
         <i class="el-icon-more"></i>
       </el-button>

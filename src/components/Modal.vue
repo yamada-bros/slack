@@ -1,41 +1,56 @@
 <template>
  <div class='modal-mask' @close="showModal = false"> 
-    <div class='modal-wrapper' @close="showModal = false">
+    <div class='modal-wrapper'>
       <div class='modal-container'>
-        <div class="esc-button" @click="$emit('close')">
-          <i class="el-icon-close"></i></br>
-          esc
+        <div class="esc-buttonBox">
+          <div class="esc-button" @click="$emit('close')">
+            <i class="el-icon-close"></i></br>
+            esc
+          </div>
         </div>
-        <div class="header">
+        <div v-if = "value1" class="header modal-inline">
           Create a channle
         </div>
-        <div class="discrption">
+        <div v-if = "!value1" class="header modal-inline">
+          Create a private channle
+        </div>
+        <div class="discrption modal-inline">
           Channles are where your tem communicates.
           They're best when organized around a topic - #leads,</br> for example
         </div>
-        <div class="channelType">
-          <el-switch
-            class="el-switch"
+        <div class="channelBox modal-inline">
+          <div class="channel-item">
+            <el-switch
             v-model="value1"
+            width="75"
             on-text="Public"
             off-text="Private"
             on-color="#13ce66"
             off-color="#ff4949">
           </el-switch>
-          Anyone on your team can view and join this channel.
+          <p v-if = "value1">Anyone on your team can view and join this channel.</p>
+          <p v-if = "!value1">This channel can only be joined or viewd by invite</p>
+          </div>
         </div>
         <div class="channel-inputBox">
-          <p>Name<span> Don't forget to name your channel</span></p>
-          <el-input placeholder="# e.g.leads" v-model="channelName"></el-input>
-          <p>Names must be lowercase, without spaces or periods,and shorter than 22 characters.</p>
-          <p>Purpose(optional)</p>
-          <el-input></el-input></br>
-          <p>What's this channel about?</p>
-          <p>Send invites to:(optional)</p>
-          <el-input placeholder="Search by name"></el-input></br>
-          <div class="channel-btnBox">
-            <el-button @click="$emit('close')">Cancel</el-button>
-            <el-button @click="channelAdd" type="primary">Create Channel</el-button>
+          <div class="modal-inline">
+            <p class="modal-item">Name<span> Don't forget to name your channel</span></p>
+            <input type="text" placeholder="#e.g.leads" v-model="channelName" class="input-decoration">
+            <!-- <el-input size="large" placeholder="# e.g.leads" v-model="channelName" class="input-decoration"></el-input> -->
+            <p class="discrption discrption-rule">Names must be lowercase, without spaces or periods,and shorter than 22 characters.</p>
+          </div>
+         <div class="modal-inline">
+          <p class="modal-item">Purpose<span class="discrption">(optional)</span></p>
+          <el-input size="large"></el-input></br>
+          <p class="discrption discrption-rule">What's this channel about?</p>
+         </div>
+          <div class="modal-inline">
+            <p class="modal-item">Send invites to:<span class="discrption">(optional)</span></p>
+            <el-input size="large" placeholder="Search by name"></el-input></br>
+          </div>
+          <div class="channel-btnBox modal-inline">
+            <el-button size="large" @click="$emit('close')">Cancel</el-button>
+            <el-button size="large" @click="channelAdd(),modalClose()" :plain="true" type="danger">Create Channel</el-button>
           </div>
         </div>
       </div>
@@ -55,8 +70,9 @@ export default {
     return {
       channelName: '',
       value1: true,
-      value2: true,
-      dialogTableVisible: true
+      dialogTableVisible: true,
+      private: false,
+      value3: 'aaaa'
     }
   },
   methods: {
@@ -65,6 +81,9 @@ export default {
       console.log(channelId)
       console.log(this.channelName)
       store.dispatch('channelAdd', channelId)
+    },
+    modalClose () {
+      this.$emit('close')
     },
     generateUuid () {
       let chars = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.split('')
@@ -106,13 +125,22 @@ export default {
 }
 
 .modal-container {
+  display: table;
   width: 50%;
-   height: 50%; 
-   margin:0 auto; 
+  margin:0 auto; 
 }
 
-.esc-button {
-  font-size: inherit;
+.modal-inline {
+  padding: 15px 0;
+}
+
+.modal-item {
+  font-weight: bold;
+  padding: 0 0 5px 0
+}
+
+.esc-buttonBox {
+  display: table;
   float: right;
   border-radius: 50%;
   text-align: center; 
@@ -120,32 +148,55 @@ export default {
   height: 60px;
 }
 
-.esc-button p {
-  padding: 0;
-  margin: 0;
-}
-
-.esc-button:hover {
+.esc-buttonBox:hover {
   background-color: #eeeeee;
-
 }
 
+.esc-button {
+  display: table-cell;
+  vertical-align: middle;
+}
 .el-icon-close {
   padding: 0;  
 }
 
 .header {
-  font-size: 2em;
+  font-size: 2.2em;
   color: black;
+  font-weight: bold;
 }
 
 .discrption {
-
+  color: #696969;
 }
+
+.discrption-rule {
+  font-size: .8em;
+  padding: 5px 0
+}
+.channel-item  {
+  display: flex; 
+  flex-direction: row; 
+  align-items: center;
+}
+.channel-item p{
+  padding-left: 10px;
+}
+
 
 .channel-inputBox span {
   color: #BE0002;
   font-family: fantasy;
+}
+
+.input-decoration {
+  border: 1px solid orange;
+  border-radius: 3px;
+  outline: none;
+  height: 42px;
+  width: 100%;
+  font-size: 1.1em;
+  color: #696969;
 }
 
 .channel-btnBox {

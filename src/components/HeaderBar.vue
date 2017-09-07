@@ -2,13 +2,13 @@
   <header class="main__header">
     <div class="main__name">
       <p>#{{ titleName }}</p></br>
-      <el-tooltip content="Star this channel" placement="top">
+      <el-tooltip content="Star this channel" open-delay="200" placement="top">
         <el-button><i class="el-icon-star-off">|</i></el-button>
       </el-tooltip>
-      <el-tooltip content="View member list" placement="top">
+      <el-tooltip content="View member list" open-delay="200"placement="top">
         <el-button><i class="el-icon-share"> 6 |</i></el-button>
       </el-tooltip>
-      <el-tooltip content="View pinned items" placement="top">
+      <el-tooltip content="View pinned items" open-delay="200" placement="top">
         <el-button><i class="el-icon-d-arrow-left"> 0 |</i></el-button>
       </el-tooltip>
       <el-button icon="edit" size="mini">Add a topic</el-button>

@@ -2,28 +2,40 @@
   <div id="scroller" class="message">
     <div class="panel-body">
       <ul id='messages'>
-        <li v-for="e in push">
-          <p v-if="!e.edit">created_time:{{ e.time }}</br>
-          {{ e.message }}</p>
-          <input type="text" v-if="e.edit" v-model="text">
+        <li v-for="e in push" @mouseover="showEdit=true" @mouseout="showEdit=false">
+          <div class="message-content">
+            <img src="https://cdn-images-1.medium.com/max/1200/1*TiKyhAN2gx4PpbOsiBhYcw.png" alt="">
+            <p v-if="!e.edit">
+              yamada_t:{{ e.time }}PM</br>
+              {{ e.message }}
+            </p>
+            <input type="text" v-if="e.edit" v-model="text">
+          </div>
           <button @click="deleat(e)">deleat</button>
-          <button @click="e.edit = true">Edit</button>
+          <button @click="e.edit = true" v-show="active">Edit</button>
           <button @click="e.edit = false">edit end</button>
           <button @click="goBottom">bottom</button>
-        </li>
+          <messagepop class="action-pop" v-show="showEdit"></messagepop>
+        </li> 
       </ul>
     </div>
   </div>
 </template>
 <script>
+import messagepop from '@/components/MessagePop'
 import store from '../store'
 
 export default {
   name: 'message',
+  components: {
+    messagepop
+  },
   data () {
     return {
       value: 'Test',
-      text: []
+      text: [],
+      active: false,
+      showEdit: true
     }
   },
   methods: {
@@ -65,21 +77,40 @@ export default {
   height: 83%;
   overflow: scroll;
 }
-
-.message p {
-  padding:3%;
+.message li {
+  margin: 0;
+  padding: 1% 5%;
+  align-items: center;
+  justify-content: space-between;
 }
-.message p:hover{
-    background: #f5f5f5;
+.message li:hover {
+  background: #f5f5f5;
+}
+.message img {
+  width: 5%;
+  height: 5%;
+  margin:0 5px 0 0;
+}
+
+.message-content {
+  display: flex;
 }
 
 #messages {
+  position: relative;
   display: flex;
   flex-direction: column;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 #messages > li {
   text-align: left;
+}
+
+.action-pop {
+  position: absolute;
+  top:0;
+  right: 2%;
 }
 
 h1, h2 {

@@ -36,10 +36,6 @@ export default new Vuex.Store({
       {
         id: 'techIc',
         name: 'fto_sys'
-      },
-      {
-        id: '9c1a876d-98ae-4297-822e-fb470693a220',
-        name: '1111@'
       }
     ],
     chat: {
