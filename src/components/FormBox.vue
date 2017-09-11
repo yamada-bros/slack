@@ -1,67 +1,57 @@
 <template>
   <div class="formbox">
-    <div class="formbox-modal">
-      <div id="modal-snippet">
-        <div id="open01">
-          <a href="#" class="close_overlay">×</a>
-          <div class="modal_window">
-            <h2>New...-----------------------------------------</h2>
-            <a href="#open-snippet">
-              <p><i class="el-icon-star-on"></i> code or text snippet</p>
-            </a>
-            <p><i class="el-icon-document"></i> post</p>
-            <h2>Add a file from...---------------------------</h2>
-            <p><i class="el-icon-upload"></i> Your computer</p>
-          </div><!--/.modal_window-->
-        </div><!--/#open01-->
-      </div><!--/#modal-->
-
-      <div id="modal">
-        <div id="open01">
-          <a href="#" class="close_overlay">×</a>
-          <div class="modal_window">
-            <h2>New...-----------------------------------------</h2>
-            <a href="#open01">
-              <p><i class="el-icon-star-on"></i> code or text snippet</p>
-            </a>
-            <p><i class="el-icon-document"></i> post</p>
-            <h2>Add a file from...---------------------------</h2>
-            <p><i class="el-icon-upload"></i> Your computer</p>
-          </div><!--/.modal_window-->
-        </div><!--/#open01-->
-      </div><!--/#modal-->
+    <div>
+      <!-- <img-modal v-show=""></img-modal> -->
+      <button class="form-button" @click="showImgModal=true"><i class="el-icon-plus"></i></button>
     </div>
-    <a href="#open01">
-      <button class="form-button"><i class="el-icon-plus"></i></button>
-    </a>
     <textarea 
       placeholder="#channlename"
       v-model="msg"
+      type="text"
       id="share-colors" 
       name="share_colors" 
-      @keyup.enter="push(),goBottom()" 
+      @keyup.enter.shift="push()" 
       class="main__share-input" />
+
     <button class="face-icon"><i class="el-icon-more"></i></button>
+    
+    <!-- <el-upload
+      action="https://jsonplaceholder.typicode.com/posts/"
+      list-type="picture-card"
+      :on-preview="handlePictureCardPreview"
+      :on-remove="handleRemove">
+      <i class="el-icon-plus"></i>
+    </el-upload>
+    <el-dialog v-model="dialogVisible" size="tiny">
+      <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog> -->
   </div>
 </template>
 <script>
 import store from '../store'
+import ImgModal from '@/components/ImgModal'
+
 export default {
   name: 'formbox',
+  componetns: {
+    ImgModal
+  },
   data () {
     return {
-      msg: []
+      msg: [],
+      showImgModal: false
     }
   },
   methods: {
     push () {
-      var d = new Date()
-      var time = d.getHours() + ':' + d.getMinutes()
+      var moment = require('moment')
+      var time = moment().format('h:mm a')
+      console.log(this.msg)
       var message = this.msg
       var timeMessage = {
+        messageId: this.generateUuid(),
+        comment: message,
         time: time,
-        message: message,
-        id: this.generateUuid(),
         edit: false
       }
       store.dispatch('push', timeMessage)
@@ -82,14 +72,14 @@ export default {
       return chars.join('')
     }
   },
-  updated: function goBottom () {
-    var scrollheight = document.getElementById('scroller').scrollHeight
-    document.getElementById('scroller').scrollTop = scrollheight
-  },
   computed: {
     titleName () {
       return store.getters.channelSwitch
     }
+  },
+  updated: function goBottom () {
+    var scrollheight = document.getElementById('scroller').scrollHeight
+    document.getElementById('scroller').scrollTop = scrollheight
   }
 }
 </script>
@@ -105,6 +95,8 @@ export default {
   border: 2px solid #000;
   border-radius: .25rem;
 }
+
+
 
 .form-button {
   align-items: center; 

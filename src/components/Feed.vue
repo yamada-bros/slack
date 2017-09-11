@@ -10,11 +10,12 @@
 import headerBar from '@/components/HeaderBar'
 import message from '@/components/Message'
 import formbox from '@/components/FormBox'
+import ImgModal from '@/components/ImgModal'
 
 export default {
   name: 'feed',
   components: {
-    headerBar, message, formbox
+    headerBar, message, formbox, ImgModal
   },
   data () {
     return {

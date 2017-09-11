@@ -12,9 +12,10 @@
     </el-tooltip>
     <el-tooltip content="Channel Settings" open-delay="200" placement="top">
       <el-button>
-        <i class="el-icon-setting"></i>
+        <i class="el-icon-setting" @click="showEdit=true"></i>
       </el-button>
     </el-tooltip>
+    <channelsetting v-show="showEdit"></channelsetting>
 
     <div class="searchBox">
       <el-input
@@ -41,13 +42,18 @@
 </template>
 
 <script>
+import channelsetting from '@/components/ChannelSetting'
 
 export default {
   name: 'searchbox',
+  components: {
+    channelsetting
+  },
   data () {
     return {
       msg: '',
-      input2: ''
+      input2: '',
+      showEdit: false
     }
   },
   methods: {

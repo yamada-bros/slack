@@ -2,22 +2,22 @@
   <header class="main__header">
     <div class="main__name">
       <p>#{{ titleName }}</p></br>
-      <el-tooltip content="Star this channel" open-delay="200" placement="top">
+      <el-tooltip content="Star this channel" placement="top">
         <el-button><i class="el-icon-star-off">|</i></el-button>
       </el-tooltip>
-      <el-tooltip content="View member list" open-delay="200"placement="top">
+      <el-tooltip content="View member list"placement="top">
         <el-button><i class="el-icon-share"> 6 |</i></el-button>
       </el-tooltip>
-      <el-tooltip content="View pinned items" open-delay="200" placement="top">
+      <el-tooltip content="View pinned items" placement="top">
         <el-button><i class="el-icon-d-arrow-left"> 0 |</i></el-button>
       </el-tooltip>
       <el-button icon="edit" size="mini">Add a topic</el-button>
     </div>
-    <searchbox></searchbox>
+    <searchbox openDelay="200"></searchbox>
   </header>
 </template>
 
-<script src="//unpkg.com/element-ui@1.4.3/lib/index.js"></script>
+
 <script>
 import store from '../store'
 import searchbox from '@/components/SearchBox'
@@ -49,7 +49,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-@import url("https://unpkg.com/element-ui/lib/theme-default/index.css");
+/* @import url("https://unpkg.com/element-ui/lib/theme-default/index.css"); */
 
 .main__header {
   display: flex;

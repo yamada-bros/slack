@@ -1,22 +1,27 @@
 <template>
-  <div id="scroller" class="message">
-    <div class="panel-body">
-      <ul id='messages'>
-        <li v-for="e in push" @mouseover="showEdit=true" @mouseout="showEdit=false">
+  <div id="scroller">
+    <div class="messages">
+      <ul class='message-list'>
+        <!-- <li v-for="e in push" @mouseover="showEdit=true" @mouseout="showEdit=false"> -->
+        <li v-for="msg in messages">
           <div class="message-content">
-            <img src="https://cdn-images-1.medium.com/max/1200/1*TiKyhAN2gx4PpbOsiBhYcw.png" alt="">
-            <p v-if="!e.edit">
-              yamada_t:{{ e.time }}PM</br>
-              {{ e.message }}
-            </p>
-            <input type="text" v-if="e.edit" v-model="text">
+            <img src="http://sakurabaryo.com/wp/wp-content/uploads/2015/09/CA%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB.png" alt="">
+            <div class="message-user">
+              <div>
+                yamada_t<span> {{ msg.time }}</span></br>
+              </div>
+              <div v-if="!msg.edit">
+                {{ msg.comment }}
+              </div>
+              <input type="text" v-if="msg.edit" v-model="newMsg">
+            </div>
           </div>
-          <button @click="deleat(e)">deleat</button>
-          <button @click="e.edit = true" v-show="active">Edit</button>
-          <button @click="e.edit = false">edit end</button>
-          <button @click="goBottom">bottom</button>
+          <button @click="deleat(msg)">deleat</button>
+          <button @click="msg.edit = true">Edit</button>
+          <button @click="msg.edit = false">Cancel</button>
+          <button @click="msg.edit = false, edit(msg)">↩︎Save Changes</button>
           <messagepop class="action-pop" v-show="showEdit"></messagepop>
-        </li> 
+        </li>
       </ul>
     </div>
   </div>
@@ -33,9 +38,9 @@ export default {
   data () {
     return {
       value: 'Test',
-      text: [],
       active: false,
-      showEdit: true
+      showEdit: true,
+      newMsg: ''
     }
   },
   methods: {
@@ -50,14 +55,18 @@ export default {
     editOff () {
       store.dispatch('editOff')
     },
-    goBottom () {
-      var scrollheight = document.getElementById('scroller').scrollHeight
-      document.getElementById('scroller').scrollTop = scrollheight
+    edit (value) {
+      console.log(value)
+      console.log(this.newMsg)
+      value.message = this.newMsg
+      store.dispatch('editMsg', value)
+      this.newMsg = ''
     }
   },
   computed: {
-    push () {
-      return store.getters.messagePush
+    messages () {
+      console.log(store.getters.channelChange)
+      return store.getters.channelChange
     },
     time () {
       return store.getters.timePush
@@ -73,27 +82,49 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.message {
-  height: 83%;
-  overflow: scroll;
+ #scroller {
+   overflow: hidden;
+   height: 83%;
+   overflow: scroll;
+ }
+
+.messages {
+   height: 100%; 
+   width: 100%;
+  display: table;
 }
-.message li {
+
+ .message-list {
+  display: table-cell;
+  vertical-align: bottom;
+} 
+
+.message-list li {
   margin: 0;
   padding: 1% 5%;
   align-items: center;
   justify-content: space-between;
 }
-.message li:hover {
+.message-list li:hover {
   background: #f5f5f5;
 }
-.message img {
-  width: 5%;
-  height: 5%;
+.message-list img {
+  width: 45px;
+  height: 45px;
   margin:0 5px 0 0;
+  border-radius: 10px;
 }
 
 .message-content {
   display: flex;
+  font-weight: normal;
+}
+.message-content span {
+  color: #696969;
+  font-weight: lighter;
+}
+.message-user {
+  font-weight: bold;
 }
 
 #messages {
@@ -108,26 +139,9 @@ export default {
 }
 
 .action-pop {
-  position: absolute;
-  top:0;
+  /* position: absolute; */
+  top:30%;
   right: 2%;
 }
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

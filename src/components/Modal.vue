@@ -21,15 +21,15 @@
         <div class="channelBox modal-inline">
           <div class="channel-item">
             <el-switch
-            v-model="value1"
-            width="75"
-            on-text="Public"
-            off-text="Private"
-            on-color="#13ce66"
-            off-color="#ff4949">
-          </el-switch>
-          <p v-if = "value1">Anyone on your team can view and join this channel.</p>
-          <p v-if = "!value1">This channel can only be joined or viewd by invite</p>
+              v-model="value1"
+              width="75"
+              on-text="Public"
+              off-text="Private"
+              on-color="#13ce66"
+              off-color="#ff4949">
+            </el-switch>
+            <p v-if = "value1">Anyone on your team can view and join this channel.</p>
+            <p v-if = "!value1">This channel can only be joined or viewd by invite</p>
           </div>
         </div>
         <div class="channel-inputBox">
@@ -59,7 +59,6 @@
   </div>
 </div>
 
-
 </template>
 
 <script>
@@ -77,7 +76,14 @@ export default {
   },
   methods: {
     channelAdd () {
-      var channelId = {id: this.generateUuid(), name: this.channelName}
+      // var channelId = {id: this.generateUuid(), name: this.channelName}
+      var id = this.generateUuid()
+      var name = this.channelName
+      var channelId = {
+        id: id,
+        name: name,
+        messages: []
+      }
       console.log(channelId)
       console.log(this.channelName)
       store.dispatch('channelAdd', channelId)
@@ -182,7 +188,6 @@ export default {
 .channel-item p{
   padding-left: 10px;
 }
-
 
 .channel-inputBox span {
   color: #BE0002;

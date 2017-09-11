@@ -32,7 +32,7 @@
             <button class="inner-color">Pin to #channel_name</button>
           </li>
           <li class="inner-color">
-            <button class="inner-color">Edit message</button>
+            <button class="inner-color" @click="msg.edit = true">Edit message</button>
           </li>
           <li class="deleteBtn">
             <button class="deleteBtn">Delete message</button> 
@@ -64,7 +64,7 @@
 </template>
 <script>
 // import store from '../store'
-
+import store from '../store'
 export default {
   name: 'message',
   data () {
@@ -76,6 +76,10 @@ export default {
   methods: {
   },
   computed: {
+    push () {
+      console.log(store.getters.messagePush)
+      return store.getters.messagePush
+    }
   }
 }
 </script>

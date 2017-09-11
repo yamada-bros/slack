@@ -31,7 +31,7 @@
       <ul class="channels__list">
         <li 
           v-for="e in channel"
-          @click="handleChanel(e)">
+          @click="handleChanel(e), channelChange(e)">
             <button 
               class="channels__button"><span id="title_name">{{ e.name }}</span></button>
         </li>
@@ -54,8 +54,6 @@
   </div>
 </template>
 
-<script src="//unpkg.com/element-ui@1.4.3/lib/index.js"></script>
-
 <script>
 import store from '../store'
 import modal from '@/components/Modal'
@@ -77,6 +75,10 @@ export default {
     handleChanel (value) {
       store.dispatch('title', value)
       console.log(value)
+    },
+    channelChange (value) {
+      console.log(value)
+      store.dispatch('channelChange', value)
     },
     channelAdd () {
       var channelId = {id: this.generateUuid(), name: '111'}
@@ -104,7 +106,7 @@ export default {
       return store.getters.messagePush
     },
     channel () {
-      console.log(store.getters.channel_id)
+      console.log(store.getters.channelAdd)
       return store.getters.channel_id
     }
   }

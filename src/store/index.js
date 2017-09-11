@@ -4,119 +4,49 @@ import Element from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/ja'
 import 'element-ui/lib/theme-default/index.css'
 Vue.use(Element, {locale})
-
 Vue.use(Vuex)
+Vue.component('searchbox', {
+  props: {
+    openDelay: {
+      type: Number,
+      required: true
+    }
+  }
+})
 
 export default new Vuex.Store({
   state: {
-    messages: [],
     editNumber: '',
     title: 'channel name',
     channel: [
-      {
-        id: 'rookies',
-        name: 'rookies'
-      },
-      {
-        id: 'techIc',
-        name: 'fto'
-      },
-      {
-        id: '003',
-        name: 'techIc'
-      },
-      {
-        id: 'techIc',
-        name: 'fto-server-info'
-      },
-      {
-        id: 'techIc',
-        name: 'github'
-      },
-      {
-        id: 'techIc',
-        name: 'fto_sys'
-      }
-    ],
-    chat: {
-      'rookies': [
-        {
-          'id': '1',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'node',
-          'created_at': '2017/08/30'
-        },
-        {
-          'id': '2',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'aaaa'
-        },
-        {
-          'id': '3',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'メッセ'
-        }
-      ],
-      'techIc': [
-        {
-          'id': '1',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'node'
-        },
-        {
-          'id': '1',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': '打ち上げ花火'
-        },
-        {
-          'id': '1',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'node'
-        },
-        {
-          'id': '1',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'node'
-        }
-      ],
-      'a': [
-        {
-          'id': '1',
-          'user': {
-            'name': 'daison',
-            'dev': 'techIc'
-          },
-          'comment': 'nodeやで'
-        }
-      ]
-    }
+      // {
+      //   id: 'id',
+      //   name: 'name',
+      //   messages: []
+      // },
+      // {
+      //   id: 'idasdfasdfasfdasdfasdf',
+      //   name: 'name2',
+      //   messages: []
+      // },
+      // {
+      //   id: 'idasdfargq3gqgrtyj7989l',
+      //   name: 'name3',
+      //   messages: []
+      // }
+      // {
+      //   id: 'techIc',
+      //   name: 'fto'
+      // },
+    ]
   },
   mutations: {  // stateの中身を書き換える
     push (state, msg) {
-      state.messages.push(msg)
+      console.log(state.channel[0].fto.messages)
+      state.channel[0].fto.messages.push(msg)
     },
     channelAdd (state, payload) {
+      console.log(payload)
       state.channel.push(payload)
     },
     time (state, time) {
@@ -146,9 +76,28 @@ export default new Vuex.Store({
     editDone (state) {
       state.messages.edit = false
     },
+    editMsg (state, editMsg) {
+      console.log(editMsg)
+      var editNumber = null
+      for (var i in state.messages) {
+        if (state.messages[i].id === editMsg.id) {
+          editNumber = i
+        }
+      }
+      state.messages[editNumber].message = editMsg.message
+    },
     title (state, title) {
       console.log(title)
       state.title = title.name
+    },
+    channelChange (state, chId) {
+      var currentId = null
+      for (var i in state.channel) {
+        if (i === chId) {
+          currentId = i
+        }
+      }
+      return currentId
     }
   },
   actions: { // 非同期処理をする
@@ -165,6 +114,10 @@ export default new Vuex.Store({
     channelAdd (context, ch) {
       context.commit('channelAdd', ch)
     },
+    channelChange (context, chChange) {
+      console.log(chChange)
+      context.commit('channelChange', chChange)
+    },
     editOn (context, editId) {
       console.log(editId.id)
       var editer = editId
@@ -172,11 +125,16 @@ export default new Vuex.Store({
     },
     editOff (context) {
       context.commit('editDone')
+    },
+    editMsg (context, editMsg) {
+      console.log(editMsg)
+      context.commit('editMsg', editMsg)
     }
   },
   getters: {
     messagePush: state => {
-      return state.messages
+      // console.log(state.channel)
+      return state.channel
     },
     timePush: state => {
       return state.time
@@ -191,10 +149,12 @@ export default new Vuex.Store({
     channelSwitch: state => {
       return state.title
     },
-    headerTitle: state => {
-      return state.channel.name
+    channelChange: state => {
+      console.log(state.channel.channelChange().messages)
+      return state.channel.channelChange().messages
     },
     channelAdd: state => {
+      console.log(state.channel)
       return state.channel
     }
   }
