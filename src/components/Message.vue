@@ -65,8 +65,8 @@ export default {
   },
   computed: {
     messages () {
-      console.log(store.getters.channelChange)
-      return store.getters.channelChange
+      console.log(store.getters.messagePush)
+      return store.getters.messagePush
     },
     time () {
       return store.getters.timePush

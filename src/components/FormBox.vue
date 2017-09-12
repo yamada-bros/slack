@@ -10,7 +10,7 @@
       type="text"
       id="share-colors" 
       name="share_colors" 
-      @keyup.enter.shift="push()" 
+      @keydown.enter.shift="push()" 
       class="main__share-input" />
 
     <button class="face-icon"><i class="el-icon-more"></i></button>
@@ -38,7 +38,7 @@ export default {
   },
   data () {
     return {
-      msg: [],
+      msg: '',
       showImgModal: false
     }
   },
