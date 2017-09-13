@@ -17,7 +17,6 @@
   </header>
 </template>
 
-
 <script>
 import store from '../store'
 import searchbox from '@/components/SearchBox'
@@ -45,11 +44,7 @@ export default {
 }
 </script>
 
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-/* @import url("https://unpkg.com/element-ui/lib/theme-default/index.css"); */
 
 .main__header {
   display: flex;

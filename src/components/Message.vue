@@ -10,10 +10,10 @@
               <div>
                 yamada_t<span> {{ msg.time }}</span></br>
               </div>
-              <div v-if="!msg.edit">
-                {{ msg.comment }}
+              <div v-if="!msg.edit" class="messageContent">
+                <p>{{ msg.comment }}</p>
               </div>
-              <input type="text" v-if="msg.edit" v-model="newMsg">
+              <textarea type="text" v-if="msg.edit" v-model="newMsg" class="input-decoration"></textarea>
             </div>
           </div>
           <button @click="deleat(msg)">deleat</button>
@@ -127,6 +127,11 @@ export default {
   font-weight: bold;
 }
 
+.messageContent p{
+  white-space: pre;
+  font-weight: normal;
+}
+
 #messages {
   position: relative;
   display: flex;
@@ -144,4 +149,13 @@ export default {
   right: 2%;
 }
 
+.input-decoration {
+  border: 1px solid orange;
+  border-radius: 5px;
+  outline: none;
+  height: 42px;
+  width: 100%;
+  font-size: 1.1em;
+  color: #696969;
+}
 </style>

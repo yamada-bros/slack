@@ -72,7 +72,6 @@ export default new Vuex.Store({
       state.time.push(time)
     },
     deleat (state, msg) {
-      console.log(msg)
       var channelNumber = null
       for (var n in state.channel) {
         if (state.channel[n].id === state.currentChannelId) {
@@ -80,13 +79,31 @@ export default new Vuex.Store({
         }
       }
       var deleatNumber = null
-      for (var i in state.channle[channelNumber].messages) {
-        if (state.messages[i].messageId === msg.id) {
+      for (var i in state.channel[channelNumber].messages) {
+        if (state.channel[channelNumber].messages[i].messageId === msg.messageId) {
           deleatNumber = i
         }
       }
+      console.log(state.channel)
       if (deleatNumber === null) return
-      state.channel[channelNumber].messages[deleatNumber].splice(deleatNumber, 1)
+      state.channel[channelNumber].messages.splice(deleatNumber, 1)
+    },
+    editMsg (state, editMsg) {
+      console.log(editMsg)
+      var channelNumber = null
+      for (var n in state.channel) {
+        if (state.channel[n].id === state.currentChannelId) {
+          channelNumber = n
+        }
+      }
+      var editNumber = null
+      for (var i in state.channel[channelNumber].messages) {
+        console.log(state.channel[channelNumber].messages)
+        if (state.channel[channelNumber].messages[i].messageId === editMsg.messageId) {
+          editNumber = i
+        }
+      }
+      state.channel[channelNumber].messages[editNumber].comment = editMsg.message
     },
     editStart (state, editer) {
       var editNumber = null
@@ -102,20 +119,22 @@ export default new Vuex.Store({
     editDone (state) {
       state.messages.edit = false
     },
-    editMsg (state, editMsg) {
-      console.log(editMsg)
-      var editNumber = null
-      for (var i in state.messages) {
-        if (state.messages[i].id === editMsg.id) {
-          editNumber = i
-        }
-      }
-      state.messages[editNumber].message = editMsg.message
-    },
     title (state, title) {
       console.log(title.id)
       state.title = title.name
       state.currentChannelId = title.id
+    },
+    leave (state) {
+      console.log(state.channel)
+      console.log(state.currentChannelId)
+      var channelNumber = null
+      for (var n in state.channel) {
+        if (state.channel[n].id === state.currentChannelId) {
+          channelNumber = n
+        }
+      }
+      state.channel.splice(channelNumber, 1)
+      state.title = 'You left this channel!!'
     }
   },
   actions: { // 非同期処理をする
@@ -147,6 +166,9 @@ export default new Vuex.Store({
     editMsg (context, editMsg) {
       console.log(editMsg)
       context.commit('editMsg', editMsg)
+    },
+    leave (context) {
+      context.commit('leave')
     }
   },
   getters: {

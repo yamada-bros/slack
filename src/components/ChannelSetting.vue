@@ -1,4 +1,4 @@
-<template>
+<template >
       <div class="editBox">
         <ul class="edit-pop">
           <li class="inner-color">
@@ -10,7 +10,7 @@
           <li class="inner-color">
             <button class="inner-color">View channle details</button>
           </li>
-          <li class="inner-color" @click="showRemind=true">
+          <li class="inner-color">
             <button class="inner-color">Additional options...</button>
           </li>
           <li class="inner-color">
@@ -23,22 +23,29 @@
             <button class="inner-color">Add an app</button>
           </li>
           <li class="deleteBtn">
-            <button class="deleteBtn">Leave #channel</button> 
+            <button class="deleteBtn" @click="leave(), $emit('panretMessage')">Leave #channel</button> 
           </li>
         </ul>
       </div>
 </template>
 <script>
+import store from '../store'
 
 export default {
   name: 'ChannelSetting',
   data () {
     return {
-      showEdit: false,
+      showEdit: true,
       showRemind: false
     }
   },
   methods: {
+    leave () {
+      store.dispatch('leave')
+    },
+    panretMessage () {
+      this.showEdit = false
+    }
   },
   computed: {
   }
