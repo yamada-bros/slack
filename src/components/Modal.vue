@@ -1,5 +1,5 @@
 <template>
- <div class='modal-mask' @close="showModal = false"> 
+ <div class='modal-mask' @close="showModal = false">
     <div class='modal-wrapper'>
       <div class='modal-container'>
         <div class="esc-buttonBox">
@@ -63,11 +63,15 @@
 
 <script>
 import store from '../store'
+var Validator = require('validatorjs')
+Validator.useLang('ja')
+
 export default {
   name: 'modal',
   data () {
     return {
       channelName: '',
+      email: '',
       value1: true,
       dialogTableVisible: true,
       private: false,
@@ -84,12 +88,27 @@ export default {
         name: name,
         messages: []
       }
-      console.log(channelId)
-      console.log(this.channelName)
-      store.dispatch('channelAdd', channelId)
+      var validation = new Validator({
+        name: name
+      }, {
+        name: 'required'
+      })
+      var val = validation.passes()
+      console.log(val)
+      if (val === true) {
+        store.dispatch('channelAdd', channelId)
+      }
     },
     modalClose () {
-      this.$emit('close')
+      var validation = new Validator({
+        name: this.channelName
+      }, {
+        name: 'required'
+      })
+      var val = validation.passes()
+      if (val === true) {
+        this.$emit('close')
+      }
     },
     generateUuid () {
       let chars = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.split('')

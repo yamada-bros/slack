@@ -3,6 +3,10 @@ import Vuex from 'vuex'
 import Element from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/ja'
 import 'element-ui/lib/theme-default/index.css'
+import VueRouter from 'vue-router'
+import { firebaseModel } from '@/firebaseModel'
+Vue.use(VueRouter)
+
 Vue.use(Element, {locale})
 Vue.use(Vuex)
 Vue.component('searchbox', {
@@ -67,6 +71,7 @@ export default new Vuex.Store({
     channelAdd (state, payload) {
       console.log(payload)
       state.channel.push(payload)
+      firebaseModel.addChannel(payload.id, payload.name, payload.messages)
     },
     time (state, time) {
       state.time.push(time)

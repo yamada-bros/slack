@@ -8,28 +8,21 @@
       placeholder="#channlename"
       v-model="msg"
       type="text"
+      required
       id="share-colors" 
       name="share_colors" 
       @keyup.enter.shift="push()" 
       class="main__share-input" />
 
     <button class="face-icon"><i class="el-icon-more"></i></button>
-    
-    <!-- <el-upload
-      action="https://jsonplaceholder.typicode.com/posts/"
-      list-type="picture-card"
-      :on-preview="handlePictureCardPreview"
-      :on-remove="handleRemove">
-      <i class="el-icon-plus"></i>
-    </el-upload>
-    <el-dialog v-model="dialogVisible" size="tiny">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog> -->
+
   </div>
 </template>
 <script>
 import store from '../store'
 import ImgModal from '@/components/ImgModal'
+var Validator = require('validatorjs')
+Validator.useLang('ja')
 
 export default {
   name: 'formbox',
@@ -38,7 +31,7 @@ export default {
   },
   data () {
     return {
-      msg: [],
+      msg: '',
       showImgModal: false
     }
   },
@@ -46,7 +39,6 @@ export default {
     push () {
       var moment = require('moment')
       var time = moment().format('h:mm a')
-      console.log(this.msg)
       var message = this.msg
       var timeMessage = {
         messageId: this.generateUuid(),
@@ -54,8 +46,18 @@ export default {
         time: time,
         edit: false
       }
-      store.dispatch('push', timeMessage)
-      this.msg = ''
+      var validation = new Validator({
+        comment: this.msg
+      }, {
+        comment: 'required'
+      })
+      var val = validation.passes()
+      if (val === true) {
+        store.dispatch('push', timeMessage)
+        this.msg = ''
+      } else {
+        console.log(validation.errors.first('comment'))
+      }
     },
     generateUuid () {
       let chars = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.split('')

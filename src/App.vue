@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import hello from '@/components/Hello'
+import Top from '@/components/Top'
 export default {
   name: 'app',
   components: {
-    hello
+    Top
   }
 }
 </script>
