@@ -24,6 +24,7 @@ export default new Vuex.Store({
     title: 'channel name',
     currentChannelId: '',
     currentChannel: [],
+    currentChannelFirebase: [],
     channel: [
       {
         id: 'id',

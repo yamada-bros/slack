@@ -30,6 +30,7 @@
 </template>
 <script>
 import store from '../store'
+import { firebaseModel } from '@/firebaseModel'
 
 export default {
   name: 'ChannelSetting',
@@ -42,6 +43,8 @@ export default {
   methods: {
     leave () {
       store.dispatch('leave')
+      // currntcidの中身のkey
+      firebaseModel.removeChannel()
     },
     panretMessage () {
       this.showEdit = false

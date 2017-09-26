@@ -57,6 +57,7 @@
 <script>
 import store from '../store'
 import modal from '@/components/Modal'
+import { firebaseModel } from '@/firebaseModel'
 
 export default {
   name: 'sidebar',
@@ -79,6 +80,7 @@ export default {
     channelChange (value) {
       console.log(value)
       store.dispatch('channelChange', value)
+      firebaseModel.refMessages(value.id)
     },
     channelAdd () {
       var channelId = {id: this.generateUuid(), name: '111'}

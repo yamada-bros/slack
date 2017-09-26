@@ -28,6 +28,7 @@
 </template>
 <script>
 import messagepop from '@/components/MessagePop'
+import { firebaseModel } from '@/firebaseModel'
 import store from '../store'
 
 export default {
@@ -61,6 +62,7 @@ export default {
       value.message = this.newMsg
       store.dispatch('editMsg', value)
       this.newMsg = ''
+      firebaseModel.updateMessage(this.newMsg, store.state.currentChannelId)
     }
   },
   computed: {

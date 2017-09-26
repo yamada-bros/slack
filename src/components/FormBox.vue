@@ -5,13 +5,13 @@
       <button class="form-button" @click="showImgModal=true"><i class="el-icon-plus"></i></button>
     </div>
     <textarea 
-      placeholder="#channlename"
+      v-bind:placeholder="'Message #' + titleName"
       v-model="msg"
       type="text"
       required
       id="share-colors" 
       name="share_colors" 
-      @keyup.enter.shift="push()" 
+      @keyup.enter.shift="push()"
       class="main__share-input" />
 
     <button class="face-icon"><i class="el-icon-more"></i></button>
@@ -21,6 +21,7 @@
 <script>
 import store from '../store'
 import ImgModal from '@/components/ImgModal'
+import { firebaseModel } from '@/firebaseModel'
 var Validator = require('validatorjs')
 Validator.useLang('ja')
 
@@ -54,6 +55,7 @@ export default {
       var val = validation.passes()
       if (val === true) {
         store.dispatch('push', timeMessage)
+        firebaseModel.addMessage(timeMessage, store.state.currentChannelId)
         this.msg = ''
       } else {
         console.log(validation.errors.first('comment'))

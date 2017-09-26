@@ -63,6 +63,7 @@
 
 <script>
 import store from '../store'
+import { firebaseModel } from '@/firebaseModel'
 var Validator = require('validatorjs')
 Validator.useLang('ja')
 
@@ -74,13 +75,11 @@ export default {
       email: '',
       value1: true,
       dialogTableVisible: true,
-      private: false,
-      value3: 'aaaa'
+      private: false
     }
   },
   methods: {
     channelAdd () {
-      // var channelId = {id: this.generateUuid(), name: this.channelName}
       var id = this.generateUuid()
       var name = this.channelName
       var channelId = {
@@ -97,6 +96,8 @@ export default {
       console.log(val)
       if (val === true) {
         store.dispatch('channelAdd', channelId)
+        console.log(firebaseModel)
+        firebaseModel.addChannel(channelId)
       }
     },
     modalClose () {
