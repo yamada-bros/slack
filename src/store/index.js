@@ -17,7 +17,6 @@ Vue.component('searchbox', {
     }
   }
 })
-
 export default new Vuex.Store({
   state: {
     editNumber: '',
@@ -68,6 +67,9 @@ export default new Vuex.Store({
         }
       }
       state.currentChannel = state.channel[currentId].messages
+    },
+    channelChangeFirebase (state, messagelist) {
+      state.currentChannel = messagelist
     },
     channelAdd (state, payload) {
       console.log(payload)
@@ -160,6 +162,10 @@ export default new Vuex.Store({
     channelChange (context, chChange) {
       console.log(chChange)
       context.commit('channelChange', chChange)
+    },
+    channelChangeFirebase (context, messagelist) {
+      console.log(messagelist)
+      context.commit('channelChangeFirebase', messagelist)
     },
     editOn (context, editId) {
       console.log(editId.id)

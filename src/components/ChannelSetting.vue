@@ -44,7 +44,7 @@ export default {
     leave () {
       store.dispatch('leave')
       // currntcidの中身のkey
-      firebaseModel.removeChannel()
+      firebaseModel.removeChannel(store.state.currentChannelId)
     },
     panretMessage () {
       this.showEdit = false

@@ -29,9 +29,10 @@
       </el-tooltip>
       </h2>
       <ul class="channels__list">
+         <!-- channelChangeFirebase(e),  -->
         <li 
           v-for="e in channel"
-          @click="handleChanel(e), channelChange(e)">
+          @click="handleChanel(e),channelChangeFirebase(e)">
             <button 
               class="channels__button"><span id="title_name">{{ e.name }}</span></button>
         </li>
@@ -77,10 +78,15 @@ export default {
       store.dispatch('title', value)
       console.log(value)
     },
+    channelChangeFirebase (value) {
+      firebaseModel.refMessages(value.id).then(value => {
+        console.log(value)
+        store.dispatch('channelChangeFirebase', value)
+      })
+    },
     channelChange (value) {
       console.log(value)
       store.dispatch('channelChange', value)
-      firebaseModel.refMessages(value.id)
     },
     channelAdd () {
       var channelId = {id: this.generateUuid(), name: '111'}

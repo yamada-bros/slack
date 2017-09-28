@@ -48,6 +48,7 @@ export default {
     deleat (value) {
       console.log(value)
       store.dispatch('remove', value)
+      firebaseModel.removeMessage(value, store.state.currentChannelId)
     },
     editOn (value) {
       console.log(value)
@@ -62,13 +63,21 @@ export default {
       value.message = this.newMsg
       store.dispatch('editMsg', value)
       this.newMsg = ''
-      firebaseModel.updateMessage(this.newMsg, store.state.currentChannelId)
+      firebaseModel.updateMessage(value, store.state.currentChannelId)
     }
   },
   computed: {
     messages () {
-      console.log(store.getters.messagePush)
-      return store.getters.messagePush
+      var ressponses = []
+      // console.log(store.getters.messagePush)
+      for (var i in store.getters.messagePush) {
+        // console.log(store.getters.messagePush[i])
+        for (var j in store.getters.messagePush[i]) {
+          console.log(store.getters.messagePush[i][j])
+          ressponses.push(store.getters.messagePush[i][j])
+        }
+      }
+      return ressponses
     },
     time () {
       return store.getters.timePush
